@@ -39,9 +39,15 @@ train_img, test_img, train_label, test_label = train_test_split(all_image, all_l
 # make model
 model = tf.keras.Sequential([
     tf.keras.layers.Flatten(input_shape=(len(imageList), imageSize[0], imageSize[1])),
-    tf.keras.layers.Dense(128, activation='relu'),
+    tf.keras.layers.Dense(128, activation='swish'),
     tf.keras.layers.Dense(10, activation='softmax')
 ])
+# model.add(tf.keras.layers.Input(shape=(len(imageList), imageSize[0], imageSize[1])))
+# model.add(tf.keras.layers.Flatten(input_shape=(len(imageList), imageSize[0], imageSize[1])))
+# model.add(tf.keras.layers.Dense(128, activation='swish'))
+# model.add(tf.keras.layers.Dense(64, activation='swish'))
+# model.add(tf.keras.layers.Dense(32, activation='swish'))
+# model.add(tf.keras.layers.Dense(10, activation='softmax'))
 
 model.compile(
     optimizer='adam',
