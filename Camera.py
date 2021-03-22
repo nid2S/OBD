@@ -25,12 +25,12 @@ def camera(order=0):
             cv2.destroyAllWindows()
             break
 
-    # save a frame in images folder
-    cv2.imwrite(f'./images/capture{order}.jpg', frame)
+    # save a frame in dataset folder
+    cv2.imwrite(f'dataset/captureImages/capture{order}.jpg', frame)
 
 
-def pilImread(size, link='./images/capture0.jpg'):
-    # return image(ndarray) of shape (1, y, x).
+def pilImread(size, link='./dataset/capture0.jpg'):
+    """ return image(ndarray) of shape (1, y, x). """
 
     image = Image.open(link)
     image = ImageOps.fit(image, size, Image.ANTIALIAS)
@@ -41,8 +41,8 @@ def pilImread(size, link='./images/capture0.jpg'):
     return image
 
 
-def cv2Imread(size, link='./images/capture0.jpg'):
-    # return image(ndarray) of shape (1, y, x, 3).
+def cv2Imread(size, link='./dataset/capture0.jpg'):
+    """return image(ndarray) of shape (1, y, x, 3)."""
 
     image = cv2.imread(link)
     image = cv2.resize(image, size, interpolation=cv2.INTER_LINEAR)
@@ -51,3 +51,11 @@ def cv2Imread(size, link='./images/capture0.jpg'):
 
     return image
 
+
+def getMaxSize(imageList):
+    maxSize = [0, 0]
+    for i in range(len(imageList)):
+        img = Image.open(imageList[i])
+        maxSize[0] = max(maxSize[0], len(imageList))
+        maxSize[1] = max(maxSize[1], len(imageList[0]))
+    return tuple(maxSize)
