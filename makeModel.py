@@ -55,3 +55,6 @@ model.fit(train_img, train_label, epochs=300)
 # test model
 loss, accuracy = model.evaluate(test_img, test_label)
 print(accuracy)
+
+# save model
+model.save('./model/OBD_model.h5')
