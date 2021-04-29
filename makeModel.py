@@ -34,7 +34,7 @@ for i in range(len(imageList)):
             raise ValueError("image don't match with classes")
 
 # split to train and test set
-train_img, test_img, train_label, test_label = train_test_split(all_image, all_label, train_size=0.9)
+train_img, test_img, train_label, test_label = train_test_split(all_image, all_label, random_state=0, train_size=0.9)
 
 # make model
 model = tf.keras.Sequential([
@@ -59,8 +59,14 @@ model.compile(
 model.fit(train_img, train_label, epochs=300)
 
 # test model
+
+loss, accuracy = model.evaluate(train_img, train_label)
+print(f"train accuracy : {accuracy}")
+
 loss, accuracy = model.evaluate(test_img, test_label)
-print(accuracy)
+print(f"test accuracy : {accuracy}")
 
 # save model
-model.save('./model/OBD_model.h5')
+print('save? (y/n)')
+if input() == 'y':
+    model.save('./model/OBD_model.h5')
